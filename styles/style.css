@@ -173,3 +173,13 @@ header {
     padding: 10px;
     font-size: 18px;
 }
+#infoBox{
+    display: none;
+    width: 80%;
+    margin: 10px auto;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    background: #393;
+
+}

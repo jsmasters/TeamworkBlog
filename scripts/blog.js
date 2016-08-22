@@ -2,6 +2,11 @@ const kinveyBaseUrl = 'https://baas.kinvey.com/';
 const kinveyAppKey = "kid_HyTJqHwc";
 const kinveyAppSecret = "3660086338f4450da0ff997b3abd94e3";
 
+function showPopup(massageText) {
+    $("#infoBox").text(massageText).show().delay(3000).fadeOut();
+}
+
+
 $(function () {
     $('#formLogin').submit(function (e) { e.preventDefault(); login(); });
     $('#formRegister').submit(function (e) { e.preventDefault(); register(); });
@@ -66,6 +71,7 @@ function login() {
     function loginSuccess(response) {
         let userAuth = response._kmd.authtoken;
         sessionStorage.setItem('authToken', userAuth);
-        alert("Login successfull!")
+        showPopup("Login successfull!")
+
     }
 }
