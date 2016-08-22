@@ -30,7 +30,7 @@ function register() {
 
     function registerSuccess() {
         alert("Registration successfull!")
-        window.location.href = 'http://localhost:63342/Blog/login.html'
+        window.location.href = 'login.html'
     }
 }
 
