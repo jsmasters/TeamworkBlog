@@ -4,6 +4,8 @@
     <title>Login</title>
     <link type="text/css" rel="stylesheet" href="styles/style.css"/>
     <link type="text/css" rel="stylesheet" href="styles/form-style.css"/>
+    <script src="scripts/jquery-3.0.0.min.js"></script>
+    <script src="scripts/blog.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -46,19 +48,22 @@
         <header class="register-title">Register</header>
         <!------------------------------------ Posts------------------------------------>
         <div class="user-login-blog">
-            <form>
+            <form id="formRegister">
                 <h1 class="title-form">Username:</h1>
-                <input type="text" value="" placeholder="Enter Username" id="username">
-		<h1 class="title-form">Full name:</h1>
+                <input type="text" value="" placeholder="Enter Username" id="registerUser">
+		        <h1 class="title-form">Full name:</h1>
                 <input type="text" value="" placeholder="Enter Username" id="fullName">
                 <h1 class="title-form">Password:</h1>
-                <input type="password" value="" placeholder="Enter password" id="password">
-		<h1 class="title-form">Confirm password:</h1>
+                <input type="password" value="" placeholder="Enter password" id="registerPass">
+                <h1 class="title-form">Confirm password:</h1>
                 <input type="password" value="" placeholder="Enter password" id="confirmPassword">
                 <br>
-                <button id="register-request-button">Register</button>
-<br>
-<a class="form-link" href="login.html">Login here</a>
+                <button id="register-request-button" type="submit">Register</button>
+                <br>
+                <a class="form-link" href="login.html">Login here</a>
             </form>
-	</div>
-	    
+	    </div>
+        </main>
+	    </div>
+</body>
+</html>

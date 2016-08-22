@@ -4,6 +4,8 @@
     <title>Login</title>
     <link type="text/css" rel="stylesheet" href="styles/style.css"/>
     <link type="text/css" rel="stylesheet" href="styles/form-style.css"/>
+    <script src="scripts/jquery-3.0.0.min.js"></script>
+    <script src="scripts/blog.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -46,13 +48,13 @@
         <header class="blog-title">Login</header>
         <!------------------------------------ Posts------------------------------------>
         <div class="user-login-blog">
-            <form>
+            <form id="formLogin">
                 <h1 class="title-form">Username:</h1>
-                <input type="text" value="" placeholder="Enter Username" id="username">
+                <input type="text" value="" placeholder="Enter Username" id="loginUser">
                 <h1 class="title-form">Password:</h1>
-                <input type="password" value="" placeholder="Enter password" id="password">
+                <input type="password" value="" placeholder="Enter password" id="loginPass">
                 <br>
-                <button id="login-request-button">Login</button>
+                <button id="login-request-button" type="submit">Login</button>
             </form>
             <a class="form-link" href="register.html">Register here</a>
         </div>
