@@ -1,6 +1,7 @@
 const kinveyBaseUrl = 'https://baas.kinvey.com/';
 const kinveyAppKey = "kid_HyTJqHwc";
 const kinveyAppSecret = "3660086338f4450da0ff997b3abd94e3";
+var guestCredentials = "30cc2302-7540-4295-ab12-4d26591ffa49.vy/ofGK/OPzR09zK/W0YCTI3llMJciiaXwUin3CCzbo=";
 
 function showPopup(massageText) {
     $("#infoBox").text(massageText).show().delay(3000).fadeOut();
@@ -8,6 +9,9 @@ function showPopup(massageText) {
 
 
 $(function () {
+    listPosts();
+
+
     $('#formLogin').submit(function (e) { e.preventDefault(); login(); });
     $('#formRegister').submit(function (e) { e.preventDefault(); register(); });
     $('#formCreateBook').submit(function (e) { e.preventDefault(); createBook(); });
@@ -71,7 +75,43 @@ function login() {
     function loginSuccess(response) {
         let userAuth = response._kmd.authtoken;
         sessionStorage.setItem('authToken', userAuth);
-        showPopup("Login successfull!")
+        showPopup("Login successfull!");
+        window.location.href = 'index.html';
+    }
+}
 
+function listPosts() {
+    $('#posts').empty();
+
+    const kinveyPostsUrl = kinveyBaseUrl + "appdata/" + kinveyAppKey + "/posts";
+    const kinveyAuthHeaders = {
+        'Authorization': 'Kinvey' + ' ' + guestCredentials,
+        'Content-Type': 'application/json'
+    };
+
+    $.ajax({
+        method: 'GET',
+        url: kinveyPostsUrl,
+        headers: kinveyAuthHeaders,
+        success: loadPostsSuccess,
+        error: handleAjaxError
+    });
+
+    function loadPostsSuccess(postsData) {
+        if(postsData.length == 0) {
+            $('#posts').text("No posts in the blog.");
+        } else {
+            let posts = $('#posts');
+            for(let post of postsData) {
+                posts.append($('<li>').attr('class', 'single-post').append($('<article>')).
+                append(
+                    $('<div>').attr('class', 'dot'),
+                    $('<h3>').attr('class', 'title').text(post.title),
+                    $('<p>').attr('class', 'subtitle').text("Posted on " + post.date + " by admin"),
+                    $('<p>').attr('class', 'content').text(post.content))
+                );
+            }
+            $('main').append(posts);
+        }
     }
 }
