@@ -14,11 +14,11 @@ function showErrorBox(massageText) {
 
 $(function () {
     listPosts();
-
-
+    takeRecentPosts();
+    
     $('#formLogin').submit(function (e) { e.preventDefault(); login(); });
     $('#formRegister').submit(function (e) { e.preventDefault(); register(); });
-    $('#formCreateBook').submit(function (e) { e.preventDefault(); createBook(); });
+    $('#formCreatePost').submit(function (e) { e.preventDefault(); createPost(); });
     
 });
 
@@ -114,17 +114,82 @@ function listPosts() {
         if(postsData.length == 0) {
             $('#posts').text("No posts in the blog.");
         } else {
+            postsData.sort(function (a,b){
+                return Date.parse(b.date) - Date.parse(a.date);
+            });
             let posts = $('#posts');
+            let postsCounter = 1;
             for(let post of postsData) {
-                posts.append($('<li>').attr('class', 'single-post').append($('<article>')).
+                posts.append($('<li>').attr('class', 'single-post').append($('<article>').attr('id', 'post-' + postsCounter)).
                 append(
                     $('<div>').attr('class', 'dot'),
                     $('<h3>').attr('class', 'title').text(post.title),
                     $('<p>').attr('class', 'subtitle').text("Posted on " + post.date + " by admin"),
                     $('<p>').attr('class', 'content').text(post.content))
                 );
+                
+                postsCounter++;
             }
-            $('main').append(posts);
+            $('#veiwHome').append(posts);
         }
+    }
+}
+
+function createPost() {
+    const kinveyPostsUrl = kinveyBaseUrl + "appdata/" + kinveyAppKey + "/posts";
+    const kinveyAuthHeaders = {
+        'Authorization': 'Kinvey' + ' ' + sessionStorage.getItem('authToken')
+    };
+
+    let postData = {
+        title: $('#title').val(),
+        content: $('#content').val(),
+        date: new Date()
+    };
+
+    $.ajax({
+        method: 'POST',
+        url: kinveyPostsUrl,
+        headers: kinveyAuthHeaders,
+        data: postData,
+        success: createPostSuccess,
+        error: handleAjaxError
+    });
+
+    function createPostSuccess(response) {
+        $("#veiwNewPost").hide();
+        $('#veiwHome').show();
+        showInfoBox("Post successfully created!");
+        listPosts();
+        takeRecentPosts();
+    }
+}
+
+function takeRecentPosts() {
+    $('#recent-posts').empty();
+
+    const kinveyPostsUrl = kinveyBaseUrl + "appdata/" + kinveyAppKey + "/posts";
+    const kinveyAuthHeaders = {
+        'Authorization': 'Kinvey' + ' ' + guestCredentials,
+        'Content-Type': 'application/json'
+    };
+
+    $.ajax({
+        method: 'GET',
+        url: kinveyPostsUrl,
+        headers: kinveyAuthHeaders,
+        success: loadRecentPostsSuccess,
+        error: handleAjaxError
+    });
+    
+    function loadRecentPostsSuccess(postsData) {
+        postsData.sort(function (a,b){
+            return Date.parse(b.date) - Date.parse(a.date);
+        });
+        let recentPosts = $('#recent-posts');
+        for(let i=0; i<5; i++) {
+            recentPosts.append($('<li>').attr('class', 'single-recent-post').append($('<a>').attr('href', '#post-' + (i+1)).attr('class', 'single-menu-element-link').text(postsData[i].title)));
+        }
+        $('#nav').append(recentPosts);
     }
 }

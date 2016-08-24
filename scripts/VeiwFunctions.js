@@ -30,7 +30,6 @@ $(function (){
 	showHideMenuLinks();
 	showVeiw()
 	$("#linkHome").click(function(){$("#veiwHome").show();
-									$("#posts").show();
 									$("#veiwRegister").hide();
 									$("#veiwNewPost").hide();
 									$("#veiwLogin").hide();
@@ -39,33 +38,27 @@ $(function (){
 									$("#veiwHome").hide();
 									$("#veiwRegister").hide();
 									$("#veiwNewPost").hide();
-									$("#posts").hide();
 	});
 	$("#linkRegister").click(function(){$("#veiwRegister").show();
 									$("#veiwHome").hide();
 									$("#veiwLogin").hide();
 									$("#veiwNewPost").hide();
-									$("#posts").hide();
 	});
 	$("#linkNewPost").click(function(){$("#veiwNewPost").show();
 									$("#veiwHome").hide();
-									$("#posts").hide();
 	});
 	$("#linkLogout").click(function(){$("#veiwHome").show();
-									$("#posts").show();
 									$("#veiwNewPost").hide();
 	});
 	$("#linkLogin2").click(function(){$("#veiwLogin").show();
 									$("#veiwHome").hide();
 									$("#veiwRegister").hide();
 									$("#veiwNewPost").hide();
-									$("#posts").hide();
 	});
 	$("#linkRegister2").click(function(){$("#veiwRegister").show();
 									$("#veiwHome").hide();
 									$("#veiwLogin").hide();
 									$("#veiwNewPost").hide();
-									$("#posts").hide();
 	});
 
 })
