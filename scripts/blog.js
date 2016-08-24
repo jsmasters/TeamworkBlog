@@ -1,10 +1,14 @@
+
 const kinveyBaseUrl = 'https://baas.kinvey.com/';
 const kinveyAppKey = "kid_HyTJqHwc";
 const kinveyAppSecret = "3660086338f4450da0ff997b3abd94e3";
 var guestCredentials = "30cc2302-7540-4295-ab12-4d26591ffa49.vy/ofGK/OPzR09zK/W0YCTI3llMJciiaXwUin3CCzbo=";
 
-function showPopup(massageText) {
+function showInfoBox(massageText) {
     $("#infoBox").text(massageText).show().delay(3000).fadeOut();
+}
+function showErrorBox(massageText) {
+    $("#errorBox").text(massageText).show().delay(3000).fadeOut();
 }
 
 
@@ -38,8 +42,11 @@ function register() {
     });
 
     function registerSuccess() {
-        alert("Registration successfull!")
-        window.location.href = 'login.html'
+        showInfoBox("Register successfull!");
+		$("#veiwLogin").show();
+		$("#veiwRegister").hide();
+		
+
     }
 }
 
@@ -50,7 +57,7 @@ function handleAjaxError(response) {
     }
     if(response.responseJSON && response.responseJSON.description) {
         errorMsg = response.responseJSON.description;
-        alert("Ajax error!")
+        showErrorBox("Error!!!");
     }
 }
 
@@ -75,8 +82,10 @@ function login() {
     function loginSuccess(response) {
         let userAuth = response._kmd.authtoken;
         sessionStorage.setItem('authToken', userAuth);
-        showPopup("Login successfull!");
-        window.location.href = 'index.html';
+		window.open ("file:///E:/TeamworkBlog-master/index.html#");
+        showInfoBox("Login successfull!");
+		window.location.href = 'index.html';
+        
     }
 }
 
