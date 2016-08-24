@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <title>SoftUni Blog</title>
-   <link type="text/css" rel="stylesheet" href="styles/style.css"/>
+    <link type="text/css" rel="stylesheet" href="styles/style.css"/>
     <link type="text/css" rel="stylesheet" href="styles/main-styles.css"/>
+	<link type="text/css" rel="stylesheet" href="styles/form-style.css"/>
+	<link type="text/css" rel="stylesheet" href="styles/new-post-style.css"/>
     <script src="scripts/jquery-3.0.0.min.js"></script>
     <script src="scripts/blog.js"></script>
+	<script src="scripts/VeiwFunctions.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -17,15 +20,21 @@
             <hr>
             <nav>
                 <ul>
-                    <a href="index.html" class="single-menu-element-link">
+                    <a href="#" id="linkHome" class="single-menu-element-link">
                         <li class="single-menu-element">Home</li>
                     </a>
-                    <a href="login.html" class="single-menu-element-link">
+                    <a href="#" id="linkLogin" class="single-menu-element-link">
                         <li class="single-menu-element">Login</li>
                     </a>
-                    <a href="register.html" class="single-menu-element-link">
+                    <a href="#" id="linkRegister" class="single-menu-element-link">
                         <li class="single-menu-element">Register</li>
                     </a>
+					<a href="#" id="linkNewPost" class="single-menu-element-link">
+                    <li class="single-menu-element">Create post</li>
+					</a>
+					<a href="#" id="linkLogout" class="single-menu-element-link">
+                    <li class="single-menu-element">Logout</li>
+					</a>
                 </ul>
                 <hr>
                 <h2 class="recent-posts-title">Recent Posts</h2>
@@ -44,39 +53,110 @@
             </nav>
         </aside>
         <main>
-            <!------------------------------------ Header------------------------------------>
-            <header class="blog-title">
-                <h3>Home</h3>
-            </header>
-            <!------------------------------------ Posts------------------------------------>
-            <ul id="posts">
-                <li class="single-post">
-                    <article>
-                        <div class="dot">&nbsp;</div>
-                        <h3 class="title">Work begins on HTML5.1</h3>
-                        <p class="subtitle">Posted on  30-07-2015 by Alpepe</p>
-                        <p class="content">In 1988, Orel Hershiser set the record in Major League Baseball for consecutive scoreless innings pitched. The Los Angeles Dodgers pitcher's streak of 59 innings spanned from the sixth inning of an August 30 game against the Montreal Expos to the tenth inning of a September 28 game against the San Diego Padres, not counting eight scoreless innings he pitched to start Game 1 of the 1988 National League Championship Series on October 4. The previous record of 58 2⁄3 innings was set by former Dodger pitcher Don Drysdale in 1968;
-                        </p>
-                    </article>
-                </li>
-                <li class="single-post">
-                    <article>
-                        <div class="dot">&nbsp;</div>
-                        <h3 class="title">Work begins on HTML5.1</h3>
-                        <p class="subtitle">Posted on  01-08-2015 by Alpepe</p>
-                        <p class="content">Windows 10 is a personal computer operating system developed and released by Microsoft as part of the Windows NT family of operating systems. It was officially unveiled in September 2014 following a brief demo at Build 2014. The first version of the operating system entered a public beta testing process in October 2014, leading up to its consumer release on July 29, 2015.[5]
-                        </p>
-                    </article>
-                </li>
+			<section id="infoBox" onclick='$(this).fadeOut()'>Info</section>
+			<section id="errorBox" onclick='$(this).fadeOut()'>Error</section>
+			<!------------------------------------ Home------------------------------------>
+			<section id="veiwHome" >
+			        <header class="blog-title"><h3>Home</h3></header>
+                        <ul id="posts">
+                        <li class="single-post">
+                            <article>
+                                <div class="dot">&nbsp;</div>
+                                <h3 class="title">Work begins on HTML5.1</h3>
+                                <p class="subtitle">Posted on  30-07-2015 by Alpepe</p>
+                                <p class="content">In 1988, Orel Hershiser set the record in Major League Baseball for consecutive scoreless innings pitched. The Los Angeles Dodgers pitcher's streak of 59 innings spanned from the sixth inning of an August 30 game against the Montreal Expos to the tenth inning of a September 28 game against the San Diego Padres, not counting eight scoreless innings he pitched to start Game 1 of the 1988 National League Championship Series on October 4. The previous record of 58 2⁄3 innings was set by former Dodger pitcher Don Drysdale in 1968;
+                                </p>
+                            </article>
+                        </li>
+                        <li class="single-post">
+                            <article>
+                                <div class="dot">&nbsp;</div>
+                                <h3 class="title">Work begins on HTML5.1</h3>
+                                <p class="subtitle">Posted on  01-08-2015 by Alpepe</p>
+                                <p class="content">Windows 10 is a personal computer operating system developed and released by Microsoft as part of the Windows NT family of operating systems. It was officially unveiled in September 2014 following a brief demo at Build 2014. The first version of the operating system entered a public beta testing process in October 2014, leading up to its consumer release on July 29, 2015.[5]
+                                </p>
+                            </article>
+                        </li>
 
-            </ul>
+                    </ul>
+			</section>
+			
+			
+			<!------------------------------------ Login------------------------------------>
+			<section id="veiwLogin" >
+			 <header class="blog-title">Login</header>
+			 <div class="user-login-blog">
+            <form id="formLogin">
+                <h1 class="title-form">Username:</h1>
+                <input type="text" value="" placeholder="Enter Username" id="loginUser">
+                <h1 class="title-form">Password:</h1>
+                <input type="password" value="" placeholder="Enter password" id="loginPass">
+                <br>
+                <button id="login-request-button" type="submit">Login</button>
+            </form>
+            <a  id="linkRegister2" class="form-link" href="#">Register here</a>
+            </div>
+			</section>
+			
+			
+			<!------------------------------------ Register------------------------------------>
+			<section id="veiwRegister" >
+				<header class="register-title">Register</header>
+			<div class="user-login-blog">
+				<form id="formRegister">
+					<h1 class="title-form">Username:</h1>
+					<input type="text" value="" placeholder="Enter Username" id="registerUser">
+					<h1 class="title-form">Full name:</h1>
+					<input type="text" value="" placeholder="Enter Username" id="fullName">
+					<h1 class="title-form">Password:</h1>
+					<input type="password" value="" placeholder="Enter password" id="registerPass">
+					<h1 class="title-form">Confirm password:</h1>
+					<input type="password" value="" placeholder="Enter password" id="confirmPassword">
+					<br>
+					<button id="register-request-button" type="submit">Register</button>
+					<br>
+					<a  id="linkLogin2" class="form-link" href="#">Login here</a>
+				</form>
+			</div>
+			</section>
+			
+			
+			
+			<!------------------------------------ NewPost------------------------------------>
+			<section id="veiwNewPost" >
+					<header class="new-post-title">New Post</header>
+				
+				<div class="new-post-blog">
+				<h2 id="editor-title">Create new post</h2>
+					<form id="post-form">
+				<ul class="title-author">
+					<li class="single-element-form">
+						<h1 class="title-form">Blog post title:</h1>
+						<input type="text" value="" placeholder="Title" id="title"/>
+					</li>
+					<li class="single-element-form">
+						<h1 class="title-form">Author:</h1>
+						<input type="text" value="" placeholder="Author" id="author"/>
+				</ul>
+				<h1 class="title-form">Content:</h1>
+				<textarea class="content-field" type="text" value="" placeholder="Content" id="content"></textarea>
+				<br>
+				<button id="create-request-new-post">Publish</button>
+
+			        </form>
+                </div>
+            </section>
+		
+            
+           
             <!------------------------------------ Footer------------------------------------>
-        </main>
-        <footer>
+        
+			<footer>
             <p class="footer-text">
                 &copy; Software University Fondation, No Right Reserved
             </p>
-        </footer>
+			</footer>
+		</main>
     </div>
 </body>
 </html>
