@@ -173,13 +173,19 @@ header {
     padding: 10px;
     font-size: 18px;
 }
-#infoBox{
+#infoBox, #errorBox{
     display: none;
     width: 80%;
     margin: 10px auto;
     color: white;
     text-align: center;
     padding: 5px;
-    background: #393;
-
+	border-radius: 8px;
 }
+#infoBox{
+	background: #393;
+}
+#errorBox{
+	background: #F50;
+}
+
