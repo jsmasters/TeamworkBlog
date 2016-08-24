@@ -84,7 +84,11 @@ function login() {
         sessionStorage.setItem('authToken', userAuth);
 		window.open ("file:///E:/TeamworkBlog-master/index.html#");
         showInfoBox("Login successfull!");
-		window.location.href = 'index.html';
+		showHideMenuLinks();
+		$("#veiwLogin").hide();
+		$("#veiwHome").show();
+		$("#posts").show();
+		
         
     }
 }
