@@ -114,8 +114,10 @@ function listPosts() {
         if(postsData.length == 0) {
             $('#posts').text("No posts in the blog.");
         } else {
-            postsData.sort(function (a,b){
-                return Date.parse(b.date) - Date.parse(a.date);
+            postsData.sort(function (elem1, elem2) {
+                let date1 = new Date(elem1._kmd.ect);
+                let date2 = new Date(elem2._kmd.ect);
+                return date2 - date1;
             });
             let posts = $('#posts');
             let postsCounter = 1;
@@ -183,8 +185,10 @@ function takeRecentPosts() {
     });
     
     function loadRecentPostsSuccess(postsData) {
-        postsData.sort(function (a,b){
-            return Date.parse(b.date) - Date.parse(a.date);
+        postsData.sort(function (elem1, elem2) {
+            let date1 = new Date(elem1._kmd.ect);
+            let date2 = new Date(elem2._kmd.ect);
+            return date2 - date1;
         });
         let recentPosts = $('#recent-posts');
         for(let i=0; i<5; i++) {
