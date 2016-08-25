@@ -49,6 +49,9 @@ $(function (){
 	});
 	$("#linkLogout").click(function(){$("#veiwHome").show();
 									$("#veiwNewPost").hide();
+									sessionStorage.clear();
+									showHideMenuLinks();
+									showErrorBox("LOGOUT");
 	});
 	$("#linkLogin2").click(function(){$("#veiwLogin").show();
 									$("#veiwHome").hide();
