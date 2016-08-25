@@ -144,7 +144,7 @@ function createPost() {
     let postData = {
         title: $('#title').val(),
         content: $('#content').val(),
-        date: new Date()
+        date: moment().format('MMMM Do YYYY HH:mm')
     };
 
     $.ajax({
