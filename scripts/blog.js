@@ -128,9 +128,13 @@ function listPosts() {
                     $('<div>').attr('class', 'dot'),
                     $('<h3>').attr('class', 'title').text(post.title),
                     $('<p>').attr('class', 'subtitle').text("Posted on " + post.date + " by admin"),
-                    $('<p>').attr('class', 'post-content').html(post.content))
-                );
-                
+                    $('<p>').attr('class', 'post-content').html(post.content),
+                            $('<br><br>'),
+                            $('<p>').attr('class', 'post-content').html(post.comments),
+                                    $('<p>').attr('class', 'post-content').text('Comment:'),
+                                    $('<textarea>').attr('id', 'addCommentText').attr('class', 'comment-field'),
+                                    $('<p>').attr('class', 'post-content').text('Author:'),
+                                    $('<textarea>').attr('id', 'addCommentAuthor').attr('class', 'comment-author-field'),
                 postsCounter++;
             }
             $('#veiwHome').append(posts);
@@ -147,7 +151,8 @@ function createPost() {
     let postData = {
         title: $('#title').val(),
         content: CKEDITOR.instances.content.getData(),
-        date: moment().format('MMMM Do YYYY HH:mm')
+        date: moment().format('MMMM Do YYYY HH:mm'),
+        comments: [{author: "pesho", commentText: "muhahahahahha"},{author:"gosho", commentText:"bah mamu ne stava"}]
     };
 
     $.ajax({
