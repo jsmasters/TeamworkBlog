@@ -7,7 +7,7 @@ function showVeiw() {
 
 
 function showHideMenuLinks() {
-	$(linkHome).show();
+	$('#linkHome').show();
 	if (sessionStorage.getItem('authToken')== null){
 		$("#linkLogin").show();
 		$("#linkRegister").show();
@@ -18,7 +18,7 @@ function showHideMenuLinks() {
 	else{
 		$("#linkLogin").hide();
 		$("#linkRegister").hide();
-		$("#linkNewPost").show();
+		$("#linkNewPost").hide();
 		$("#linkLogout").show();
 	}
 }

@@ -22,7 +22,6 @@ time, mark, audio, video {
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
     vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -86,9 +85,9 @@ a {
     font-weight: 100;
     margin-left: 3%;
 }
-.content {
+.post-content {
     padding-top: 2.5%;
-    font-weight: 16px Lato;
+    font: 16px Lato;
     font-weight: 500;
     width: 80%;
     margin-left: 3%;
@@ -100,3 +99,21 @@ footer {
     text-align: center;
     bottom: 0;
 }
+
+
+.post-content strong {
+    font-weight: 800;
+}
+
+.post-content em {
+    font-style: italic;
+}
+
+.post-content ol li {
+    list-style-type: decimal;
+}
+
+.post-content ul li {
+    list-style-type: disc;
+}
+

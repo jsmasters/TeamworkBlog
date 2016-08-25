@@ -88,8 +88,9 @@ function login() {
 		$("#veiwLogin").hide();
 		$("#veiwHome").show();
 		$("#posts").show();
-		
-        
+        if(response._id == '57bf113506bad3ac3f678050') {
+            $("#linkNewPost").show();
+        }
     }
 }
 
@@ -127,7 +128,7 @@ function listPosts() {
                     $('<div>').attr('class', 'dot'),
                     $('<h3>').attr('class', 'title').text(post.title),
                     $('<p>').attr('class', 'subtitle').text("Posted on " + post.date + " by admin"),
-                    $('<p>').attr('class', 'content').text(post.content))
+                    $('<p>').attr('class', 'post-content').html(post.content))
                 );
                 
                 postsCounter++;
@@ -145,7 +146,7 @@ function createPost() {
 
     let postData = {
         title: $('#title').val(),
-        content: $('#content').val(),
+        content: CKEDITOR.instances.content.getData(),
         date: moment().format('MMMM Do YYYY HH:mm')
     };
 
