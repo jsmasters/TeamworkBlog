@@ -4,6 +4,11 @@ const kinveyAppKey = "kid_HyTJqHwc";
 const kinveyAppSecret = "3660086338f4450da0ff997b3abd94e3";
 var guestCredentials = "30cc2302-7540-4295-ab12-4d26591ffa49.vy/ofGK/OPzR09zK/W0YCTI3llMJciiaXwUin3CCzbo=";
 
+
+function newCommentFormOpen(id){
+	$('#newCommentFormOpen' + id).click(function(){$('#newCommentForm'+ id).show(), $('#newCommentFormOpen' + id).hide()});
+	
+}
 function showInfoBox(massageText) {
     $("#infoBox").text(massageText).show().delay(3000).fadeOut();
 }
@@ -142,7 +147,7 @@ function listPosts() {
 							$('<a href="#">').attr('id', 'newCommentFormOpen' + postsCounter).attr('class', 'add-comment').text('Add comment here'))
 							);
 					$('#newCommentForm'+ postsCounter).hide();
-					$('#newCommentFormOpen').click(function(){$('#newCommentForm'+ postsCounter).show()});
+					newCommentFormOpen(postsCounter);
                 postsCounter++;
             }
             $('#veiwHome').append(posts);
