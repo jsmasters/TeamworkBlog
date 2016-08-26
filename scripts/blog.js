@@ -135,6 +135,11 @@ function listPosts() {
                                     $('<textarea>').attr('id', 'addCommentText').attr('class', 'comment-field'),
                                     $('<p>').attr('class', 'post-content').text('Author:'),
                                     $('<textarea>').attr('id', 'addCommentAuthor').attr('class', 'comment-author-field'),
+									$('<br>'),
+									$(' <button id="" type="submit" class="button-add-comment">Add Comment</button>'),
+									$('<br>'),
+									$('<a href="#" class="add-comment">Add comment here</a>'))
+									);
                 postsCounter++;
             }
             $('#veiwHome').append(posts);
