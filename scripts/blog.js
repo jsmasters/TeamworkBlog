@@ -9,6 +9,10 @@ function newCommentFormOpen(id){
 	$('#newCommentFormOpen' + id).click(function(){$('#newCommentForm'+ id).show(), $('#newCommentFormOpen' + id).hide()});
 	
 }
+function newCommentFormClose (id){
+	$('#newCommentForm'+ id).hide();
+	$('#newCommentFormOpen' + id).show();
+}
 function showInfoBox(massageText) {
     $("#infoBox").text(massageText).show().delay(3000).fadeOut();
 }
@@ -143,8 +147,9 @@ function listPosts() {
                                     $('<textarea>').attr('id', 'addCommentAuthor').attr('class', 'comment-author-field'),
 									$('<br>'),
 									$(' <button id="" type="submit" class="button-add-comment">Add Comment</button>'),
+									$('<button>').attr('class', 'button-add-comment').attr('onclick', 'newCommentFormClose(' + postsCounter + ')').text('Cansel'),
 									$('<br>')),
-							$('<a href="#">').attr('id', 'newCommentFormOpen' + postsCounter).attr('class', 'add-comment').text('Add comment here'))
+							$('<a href="#/">').attr('id', 'newCommentFormOpen' + postsCounter).attr('class', 'add-comment').text('Add comment here'))
 							);
 					$('#newCommentForm'+ postsCounter).hide();
 					newCommentFormOpen(postsCounter);
