@@ -129,17 +129,20 @@ function listPosts() {
                     $('<h3>').attr('class', 'title').text(post.title),
                     $('<p>').attr('class', 'subtitle').text("Posted on " + post.date + " by admin"),
                     $('<p>').attr('class', 'post-content').html(post.content),
-                            $('<br><br>'),
-                            $('<p>').attr('class', 'post-content').html(post.comments),
+                    $('<br><br>'),
+                    $('<p>').attr('class', 'post-content').html(post.comments),
+								$('<div>').attr('id', 'newCommentForm'+ postsCounter).append(
                                     $('<p>').attr('class', 'post-content').text('Comment:'),
                                     $('<textarea>').attr('id', 'addCommentText').attr('class', 'comment-field'),
                                     $('<p>').attr('class', 'post-content').text('Author:'),
                                     $('<textarea>').attr('id', 'addCommentAuthor').attr('class', 'comment-author-field'),
 									$('<br>'),
 									$(' <button id="" type="submit" class="button-add-comment">Add Comment</button>'),
-									$('<br>'),
-									$('<a href="#" class="add-comment">Add comment here</a>'))
-									);
+									$('<br>')),
+							$('<a href="#">').attr('id', 'newCommentFormOpen' + postsCounter).attr('class', 'add-comment').text('Add comment here'))
+							);
+					$('#newCommentForm'+ postsCounter).hide();
+					$('#newCommentFormOpen').click(function(){$('#newCommentForm'+ postsCounter).show()});
                 postsCounter++;
             }
             $('#veiwHome').append(posts);
