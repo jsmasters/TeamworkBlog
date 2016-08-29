@@ -132,25 +132,30 @@ function listPosts() {
             let posts = $('#posts');
             let postsCounter = 1;
             for(let post of postsData) {
-                posts.append($('<li>').attr('class', 'single-post').append($('<article>').attr('id', 'post-' + postsCounter)).
+                posts.append($('<li>').attr('class', 'single-post').append($('<article>').attr('id', 'post-' + postsCounter).attr('class', post._id).
                 append(
                     $('<div>').attr('class', 'dot'),
                     $('<h3>').attr('class', 'title').text(post.title),
                     $('<p>').attr('class', 'subtitle').text("Posted on " + post.date + " by admin"),
                     $('<p>').attr('class', 'post-content').html(post.content),
-                    $('<br><br>'),
-                    $('<p>').attr('class', 'post-content').html(post.comments),
-								$('<div>').attr('id', 'newCommentForm'+ postsCounter).append(
-                                    $('<p>').attr('class', 'post-content').text('Comment:'),
-                                    $('<textarea>').attr('id', 'addCommentText').attr('class', 'comment-field'),
-                                    $('<p>').attr('class', 'post-content').text('Author:'),
-                                    $('<textarea>').attr('id', 'addCommentAuthor').attr('class', 'comment-author-field'),
-									$('<br>'),
-									$(' <button id="" type="submit" class="button-add-comment">Add Comment</button>'),
-									$('<button>').attr('class', 'button-add-comment').attr('onclick', 'newCommentFormClose(' + postsCounter + ')').text('Cansel'),
-									$('<br>')),
-							$('<a href="#/">').attr('id', 'newCommentFormOpen' + postsCounter).attr('class', 'add-comment').text('Add comment here'))
-							);
+                    $('<br><br>'))));
+
+                if(post.comments != null) {
+                    for (let comment of post.comments) {
+                        $('.' + post._id).append($('<p>').attr('class', 'post-comment').text(comment.commentText + '   -   ' + comment.author))
+                    }
+                }
+
+                $('.' + post._id).append($('<div>').attr('id', 'newCommentForm'+ postsCounter).append(
+                        $('<p>').attr('class', 'post-content').text('Comment:'),
+                        $('<textarea>').attr('id', 'addCommentText').attr('class', 'comment-field'),
+                        $('<p>').attr('class', 'post-content').text('Author:'),
+                        $('<textarea>').attr('id', 'addCommentAuthor').attr('class', 'comment-author-field'),
+                        $('<br>'),
+                        $(' <button id="" type="submit" class="button-add-comment">Add Comment</button>'),
+                        $('<button>').attr('class', 'button-add-comment').attr('onclick', 'newCommentFormClose(' + postsCounter + ')').text('Cansel'),
+                        $('<br>')),
+                    $('<a href="#/">').attr('id', 'newCommentFormOpen' + postsCounter).attr('class', 'add-comment').text('Add comment here'));
 					$('#newCommentForm'+ postsCounter).hide();
 					newCommentFormOpen(postsCounter);
                 postsCounter++;
