@@ -163,17 +163,17 @@ function listPosts() {
                 }
 
                 $('.' + post._id).append($('<div>').attr('id', 'newCommentForm'+ postsCounter).append(
-                        $('<p>').attr('class', 'post-content').text('Comment:'),
-                        $('<textarea>').attr('id', 'addCommentText').attr('class', 'comment-field'),
-                        $('<p>').attr('class', 'post-content').text('Author:'),
-                        $('<textarea>').attr('id', 'addCommentAuthor').attr('class', 'comment-author-field'),
-                        $('<br>'),
-                        $(' <button id="" type="submit" class="button-add-comment">Add Comment</button>'),
-                        $('<button>').attr('class', 'button-add-comment').attr('onclick', 'newCommentFormClose(' + postsCounter + ')').text('Cansel'),
-                        $('<br>')),
+                    $('<p>').attr('class', 'post-content').text('Comment:'),
+                    $('<textarea>').attr('id', post._id + 'commentText').attr('class', 'comment-field'),
+                    $('<p>').attr('class', 'post-content').text('Author:'),
+                    $('<textarea>').attr('id', post._id + 'author').attr('class', 'comment-author-field'),
+                    $('<br>'),
+                    $('<button onclick="addComment(\'' + post._id + '\')">').attr('class', 'button-add-comment').text('Add comment'),
+                    $('<button>').attr('class', 'button-add-comment').attr('onclick', 'newCommentFormClose(' + postsCounter + ')').text('Cansel'),
+                    $('<br>')),
                     $('<a href="#/">').attr('id', 'newCommentFormOpen' + postsCounter).attr('class', 'add-comment').text('Add comment here'));
-					$('#newCommentForm'+ postsCounter).hide();
-					newCommentFormOpen(postsCounter);
+                $('#newCommentForm'+ postsCounter).hide();
+                newCommentFormOpen(postsCounter);
                 postsCounter++;
             }
             $('#veiwHome').append(posts);
@@ -240,5 +240,48 @@ function takeRecentPosts() {
             recentPosts.append($('<li>').attr('class', 'single-recent-post').append($('<a>').attr('href', '#post-' + (i+1)).attr('class', 'single-menu-element-link').text(postsData[i].title)));
         }
         $('#nav').append(recentPosts);
+    }
+}
+
+function  addComment(postId) {
+    const kinveyPostUrl = kinveyBaseUrl + "appdata/" + kinveyAppKey + "/posts/" + postId;
+    const kinveyAuthHeaders = {
+        'Authorization': 'Kinvey' + ' ' + guestCredentials,
+        'Content-Type': 'application/json'
+    };
+
+    $.ajax({
+        method: 'GET',
+        url: kinveyPostUrl,
+        headers: kinveyAuthHeaders,
+        success: addPostComment,
+        error: handleAjaxError
+    });
+
+    function addPostComment(data) {
+        let commentText = $('#' + data._id + 'commentText').val();
+        let commentAuthor = $('#' + data._id + 'author').val();
+        if(!data.comments) {
+            data.comments = [];
+        }
+        data.comments.push({author: commentAuthor, commentText: commentText});
+
+        let postUrl =  kinveyPostUrl;
+        let authHeaders = kinveyAuthHeaders;
+        let postData = JSON.stringify(data);
+
+        $.ajax({
+            method: "PUT",
+            url: postUrl,
+            headers: authHeaders,
+            data: postData,
+            success: addPostCommentSuccess,
+            error: handleAjaxError
+        });
+
+        function addPostCommentSuccess() {
+            listPosts();
+            showInfoBox("Your comment has been added.")
+        }
     }
 }
