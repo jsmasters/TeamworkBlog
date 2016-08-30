@@ -36,11 +36,26 @@ function register() {
     const kinveyAuthHeaders = {
         'Authorization' : 'Basic ' + btoa(kinveyAppKey + ":" + kinveyAppSecret)
     };
+		if(($('#confirmPassword').val())==0){
+		showErrorBox("Enter conform password!!!");
+		if(($('#registerPass').val())==0){
+		showErrorBox("Enter password!!!");
+		if(($('#fullName').val())==0){
+		showErrorBox("Enter full name!!!");
+		if(($('#registerUser').val())==0){
+		showErrorBox("Enter user name!!!");
+		}}}}
+	else{
+		if((($('#registerPass').val())!=($('#confirmPassword').val()))){
+		showErrorBox("Wrong password!!!");
+		$('#confirmPassword').val('');
+		$('#registerPass').val('');
+		}
+		else{
     let userData = {
         username: $('#registerUser').val(),
         password: $('#registerPass').val()
     };
-
     $.ajax({
         method: 'POST',
         url: kinveyRegisterUrl,
@@ -49,6 +64,7 @@ function register() {
         success: registerSuccess,
         error: handleAjaxError
     });
+	}}
 
     function registerSuccess() {
         showInfoBox("Register successfull!");
