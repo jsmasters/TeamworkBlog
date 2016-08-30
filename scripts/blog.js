@@ -3,8 +3,18 @@ const kinveyBaseUrl = 'https://baas.kinvey.com/';
 const kinveyAppKey = "kid_HyTJqHwc";
 const kinveyAppSecret = "3660086338f4450da0ff997b3abd94e3";
 var guestCredentials = "30cc2302-7540-4295-ab12-4d26591ffa49.vy/ofGK/OPzR09zK/W0YCTI3llMJciiaXwUin3CCzbo=";
+var adminUser = false;
 
-
+function editPost(id) {
+    $('#postText-'+ id).hide();
+    $('#postEdit-'+ id).show();
+    $('#newCommentFormOpen'+ id).hide();
+}
+function editPostClose(id){
+    $('#postText-'+ id).show();
+    $('#postEdit-'+ id).hide();
+    $('#newCommentFormOpen'+ id).show();
+}
 function newCommentFormOpen(id){
 	$('#newCommentFormOpen' + id).click(function(){$('#newCommentForm'+ id).show(), $('#newCommentFormOpen' + id).hide()});
 	
@@ -115,6 +125,7 @@ function login() {
 		$("#posts").show();
         if(response._id == '57bf113506bad3ac3f678050') {
             $("#linkNewPost").show();
+            adminUser=true;
         }
     }
 }
@@ -150,17 +161,33 @@ function listPosts() {
             for(let post of postsData) {
                 posts.append($('<li>').attr('class', 'single-post').append($('<article>').attr('id', 'post-' + postsCounter).attr('class', post._id).
                 append(
+                    $('<div>').attr('id', 'postText-' + postsCounter).append(
                     $('<div>').attr('class', 'dot'),
                     $('<h3>').attr('class', 'title').text(post.title),
                     $('<p>').attr('class', 'subtitle').text("Posted on " + post.date + " by admin"),
                     $('<p>').attr('class', 'post-content').html(post.content),
-                    $('<br><br>'))));
+                    $('<br>')),
+
+                    $('<div>').hide().attr('id', 'postEdit-' + postsCounter).append(
+                        $('<textarea>').attr('class', 'edit-post-title'),
+                        $('<br>'),
+                        $('<textarea>').attr('class', 'edit-post-text'),
+                        $('<button>').attr('class', 'button-add-comment').text('Publish'),
+                        $('<button>').attr('class', 'button-add-comment').attr('onclick', 'editPostClose(' + postsCounter + ')').text('Cansel')
+                    )
+                )));
+                
+                    $('.' + post._id).append($('<button>').attr('class', 'button-add-comment').attr('onclick', 'editPost(' + postsCounter + ')').text('Edit post'))
+
+
 
                 if(post.comments != null) {
                     for (let comment of post.comments) {
                         $('.' + post._id).append($('<p>').attr('class', 'post-comment').text(comment.commentText + '   -   ' + comment.author))
                     }
                 }
+
+
 
                 $('.' + post._id).append($('<div>').attr('id', 'newCommentForm'+ postsCounter).append(
                     $('<p>').attr('class', 'post-content').text('Comment:'),
@@ -190,8 +217,7 @@ function createPost() {
     let postData = {
         title: $('#title').val(),
         content: CKEDITOR.instances.content.getData(),
-        date: moment().format('MMMM Do YYYY HH:mm'),
-        comments: [{author: "pesho", commentText: "muhahahahahha"},{author:"gosho", commentText:"bah mamu ne stava"}]
+        date: moment().format('MMMM Do YYYY HH:mm')
     };
 
     $.ajax({

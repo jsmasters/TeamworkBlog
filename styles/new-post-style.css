@@ -91,3 +91,27 @@ border: 3px solid rgba(255, 180, 0, 1);
     margin-bottom: 15px;
     margin: 0px 0px 20px 20px;
 }
+.edit-post-title{
+    resize:none;
+    border: 3px solid #f2f2f2;
+    outline: none;
+    width: 200px;
+    height: 30px;
+    text-algin: left;
+    font: 20px Oswald;
+    margin: 20px 20px 20px 20px;
+}
+.edit-post-text{
+    resize:none;
+    border: 3px solid #f2f2f2;
+    outline: none;
+    width: 93%;
+    height: 300px;
+    border-radius: 15px;
+    text-algin: left;
+    font: 16px Lato;
+    padding: 10px;
+    margin: 20px 0px 20px 20px;
+
+
+}
