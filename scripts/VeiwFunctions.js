@@ -2,9 +2,19 @@ function showVeiw() {
 	$("#veiwLogin").hide();
 	$("#veiwRegister").hide();
 	$("#veiwNewPost").hide();
+	clearInputs ()
 	
 }
 
+function clearInputs () {
+	$('#confirmPassword').val('');
+	$('#registerPass').val('');
+	$('#fullName').val('');
+	$('#registerUser').val('');
+	$('#loginUser').val('');
+	$('#loginPass').val('');
+	$('#title').val('')
+}
 
 function showHideMenuLinks() {
 	$('#linkHome').show();
@@ -33,35 +43,42 @@ $(function (){
 									$("#veiwRegister").hide();
 									$("#veiwNewPost").hide();
 									$("#veiwLogin").hide();
+									clearInputs ()
 	});
 	$("#linkLogin").click(function(){$("#veiwLogin").show();
 									$("#veiwHome").hide();
 									$("#veiwRegister").hide();
 									$("#veiwNewPost").hide();
+									clearInputs ()
 	});
 	$("#linkRegister").click(function(){$("#veiwRegister").show();
 									$("#veiwHome").hide();
 									$("#veiwLogin").hide();
 									$("#veiwNewPost").hide();
+									clearInputs ()
 	});
 	$("#linkNewPost").click(function(){$("#veiwNewPost").show();
 									$("#veiwHome").hide();
+									clearInputs ()
 	});
 	$("#linkLogout").click(function(){$("#veiwHome").show();
 									$("#veiwNewPost").hide();
 									sessionStorage.clear();
 									showHideMenuLinks();
 									showErrorBox("LOGOUT");
+									clearInputs ()
 	});
 	$("#linkLogin2").click(function(){$("#veiwLogin").show();
 									$("#veiwHome").hide();
 									$("#veiwRegister").hide();
 									$("#veiwNewPost").hide();
+									clearInputs ()
 	});
 	$("#linkRegister2").click(function(){$("#veiwRegister").show();
 									$("#veiwHome").hide();
 									$("#veiwLogin").hide();
 									$("#veiwNewPost").hide();
+									clearInputs ()
 	});
 
 })
