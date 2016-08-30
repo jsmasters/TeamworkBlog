@@ -3,7 +3,7 @@ const kinveyBaseUrl = 'https://baas.kinvey.com/';
 const kinveyAppKey = "kid_HyTJqHwc";
 const kinveyAppSecret = "3660086338f4450da0ff997b3abd94e3";
 var guestCredentials = "30cc2302-7540-4295-ab12-4d26591ffa49.vy/ofGK/OPzR09zK/W0YCTI3llMJciiaXwUin3CCzbo=";
-var adminUser = false;
+let adminUser = 0;
 
 function editPost(id) {
     $('#postText-'+ id).hide();
@@ -125,7 +125,7 @@ function login() {
 		$("#posts").show();
         if(response._id == '57bf113506bad3ac3f678050') {
             $("#linkNewPost").show();
-            adminUser=true;
+            adminUser=1;
         }
     }
 }
@@ -176,7 +176,7 @@ function listPosts() {
                         $('<button>').attr('class', 'button-add-comment').attr('onclick', 'editPostClose(' + postsCounter + ')').text('Cansel')
                     )
                 )));
-                
+
                     $('.' + post._id).append($('<button>').attr('class', 'button-add-comment').attr('onclick', 'editPost(' + postsCounter + ')').text('Edit post'))
 
 
