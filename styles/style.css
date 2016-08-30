@@ -180,6 +180,9 @@ header {
     text-align: center;
     padding: 5px;
 	border-radius: 8px;
+    position: fixed;
+    z-index: 800;
+
 }
 #infoBox{
 	background: #393;
