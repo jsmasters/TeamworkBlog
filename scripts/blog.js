@@ -3,7 +3,6 @@ const kinveyBaseUrl = 'https://baas.kinvey.com/';
 const kinveyAppKey = "kid_HyTJqHwc";
 const kinveyAppSecret = "3660086338f4450da0ff997b3abd94e3";
 var guestCredentials = "30cc2302-7540-4295-ab12-4d26591ffa49.vy/ofGK/OPzR09zK/W0YCTI3llMJciiaXwUin3CCzbo=";
-let adminUser = 0;
 
 function editPost(id) {
     $('#postText-'+ id).hide();
@@ -119,14 +118,13 @@ function login() {
         sessionStorage.setItem('authToken', userAuth);
 		window.open ("file:///E:/TeamworkBlog-master/index.html#");
         showInfoBox("Login successfull!");
-		showHideMenuLinks();
 		$("#veiwLogin").hide();
 		$("#veiwHome").show();
 		$("#posts").show();
         if(response._id == '57bf113506bad3ac3f678050') {
-            $("#linkNewPost").show();
-            adminUser=1;
+            sessionStorage.setItem('username', 'admin');
         }
+        showHideMenuLinks();
     }
 }
 
@@ -161,23 +159,23 @@ function listPosts() {
             for(let post of postsData) {
                 posts.append($('<li>').attr('class', 'single-post').append($('<article>').attr('id', 'post-' + postsCounter).attr('class', post._id).
                 append(
-                    $('<div>').attr('id', 'postText-' + postsCounter).append(
+                    $('<div>').attr('id', 'postText-' + post._id).append(
                     $('<div>').attr('class', 'dot'),
                     $('<h3>').attr('class', 'title').text(post.title),
                     $('<p>').attr('class', 'subtitle').text("Posted on " + post.date + " by admin"),
                     $('<p>').attr('class', 'post-content').html(post.content),
                     $('<br>')),
 
-                    $('<div>').hide().attr('id', 'postEdit-' + postsCounter).append(
-                        $('<textarea>').attr('class', 'edit-post-title'),
+                    $('<div>').hide().attr('id', 'postEdit-' + post._id).append(
+                        $('<textarea>').attr('class', 'edit-post-title').attr('id', 'edit-post-title-' + post._id),
                         $('<br>'),
-                        $('<textarea>').attr('class', 'edit-post-text'),
-                        $('<button>').attr('class', 'button-add-comment').text('Publish'),
+                        $('<textarea>').attr('class', 'edit-post-text').attr('id', 'edit-post-content-' + post._id),
+                        $('<button onclick="edit(\'' + post._id + '\')">').attr('class', 'button-add-comment').text('Publish'),
                         $('<button>').attr('class', 'button-add-comment').attr('onclick', 'editPostClose(' + postsCounter + ')').text('Cansel')
                     )
                 )));
-
-                    $('.' + post._id).append($('<button>').attr('class', 'button-add-comment').attr('onclick', 'editPost(' + postsCounter + ')').text('Edit post'))
+                
+                    $('.' + post._id).append($('<button>').hide().attr('class', 'button-edit-post').attr('onclick', 'editPost("' + post._id + '")').text('Edit post'));
 
 
 
@@ -309,5 +307,45 @@ function  addComment(postId) {
             listPosts();
             showInfoBox("Your comment has been added.")
         }
+    }
+}
+
+function edit(id){
+    const kinveyPostUrl = kinveyBaseUrl + "appdata/" + kinveyAppKey + "/posts/" + id;
+    const kinveyAuthHeaders = {
+        'Authorization': 'Kinvey' + ' ' + guestCredentials,
+        'Content-Type': 'application/json'
+    };
+
+    $.ajax({
+        method: 'GET',
+        url: kinveyPostUrl,
+        headers: kinveyAuthHeaders,
+        success: editThisPost,
+        error: handleAjaxError
+    });
+
+    function editThisPost(data) {
+        let newTitle = $('#edit-post-title-' + data._id).val();
+        let newContent = $('#edit-post-content-' + data._id).val();
+
+        data.title = newTitle;
+        data.content = newContent;
+        let postData = JSON.stringify(data);
+
+        $.ajax({
+            method: "PUT",
+            url: kinveyPostUrl,
+            headers: kinveyAuthHeaders,
+            data: postData,
+            success: editPostSuccess,
+            error: handleAjaxError
+        });
+
+        function editPostSuccess() {
+            listPosts();
+            showInfoBox("Post successfully edited.")
+        }
+
     }
 }

@@ -28,7 +28,10 @@ function showHideMenuLinks() {
 	else{
 		$("#linkLogin").hide();
 		$("#linkRegister").hide();
-		$("#linkNewPost").hide();
+		if(sessionStorage.getItem('username') == 'admin') {
+			$("#linkNewPost").show();
+			$(".button-edit-post").show();
+		}
 		$("#linkLogout").show();
 	}
 }
