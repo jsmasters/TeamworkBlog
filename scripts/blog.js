@@ -8,6 +8,10 @@ function editPost(id) {
     $('#postText-'+ id).hide();
     $('#postEdit-'+ id).show();
     $('#newCommentFormOpen'+ id).hide();
+    console.log($('#post-title-' + id).text());
+    $('#edit-post-title-' + id).val($('#post-title-' + id).text());
+    $('#edit-post-content-' + id).val($('#post-content-' + id).text());
+
 }
 function editPostClose(id){
     $('#postText-'+ id).show();
@@ -116,15 +120,16 @@ function login() {
     function loginSuccess(response) {
         let userAuth = response._kmd.authtoken;
         sessionStorage.setItem('authToken', userAuth);
-		window.open ("file:///E:/TeamworkBlog-master/index.html#");
         showInfoBox("Login successfull!");
 		$("#veiwLogin").hide();
 		$("#veiwHome").show();
 		$("#posts").show();
         if(response._id == '57bf113506bad3ac3f678050') {
             sessionStorage.setItem('username', 'admin');
+            $(".button-edit-post").show();
         }
         showHideMenuLinks();
+        listPosts();
     }
 }
 
@@ -161,9 +166,9 @@ function listPosts() {
                 append(
                     $('<div>').attr('id', 'postText-' + post._id).append(
                     $('<div>').attr('class', 'dot'),
-                    $('<h3>').attr('class', 'title').text(post.title),
+                    $('<h3>').attr('class', 'title').attr('id' , 'post-title-' + post._id).text(post.title),
                     $('<p>').attr('class', 'subtitle').text("Posted on " + post.date + " by admin"),
-                    $('<p>').attr('class', 'post-content').html(post.content),
+                    $('<p>').attr('class', 'post-content').attr('id' , 'post-content-' + post._id).html(post.content),
                     $('<br>')),
 
                     $('<div>').hide().attr('id', 'postEdit-' + post._id).append(
@@ -171,11 +176,13 @@ function listPosts() {
                         $('<br>'),
                         $('<textarea>').attr('class', 'edit-post-text').attr('id', 'edit-post-content-' + post._id),
                         $('<button onclick="edit(\'' + post._id + '\')">').attr('class', 'button-add-comment').text('Publish'),
-                        $('<button>').attr('class', 'button-add-comment').attr('onclick', 'editPostClose(' + postsCounter + ')').text('Cansel')
+                        $('<button>').attr('class', 'button-add-comment').attr('onclick', 'editPostClose(\'' + post._id + '\')').text('Cansel')
                     )
                 )));
-                
-                    $('.' + post._id).append($('<button>').hide().attr('class', 'button-edit-post').attr('onclick', 'editPost("' + post._id + '")').text('Edit post'));
+
+                if(sessionStorage.getItem('username') == 'admin') {
+                    $('.' + post._id).append($('<button>').attr('class', 'button-edit-post').attr('onclick', 'editPost("' + post._id + '")').text('Edit post'));
+                }
 
 
 

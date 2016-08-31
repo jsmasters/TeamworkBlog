@@ -30,9 +30,12 @@ function showHideMenuLinks() {
 		$("#linkRegister").hide();
 		if(sessionStorage.getItem('username') == 'admin') {
 			$("#linkNewPost").show();
-			$(".button-edit-post").show();
 		}
 		$("#linkLogout").show();
+	}
+
+	if(sessionStorage.getItem('username') == 'admin') {
+		$(".button-edit-post").show();
 	}
 }
 
