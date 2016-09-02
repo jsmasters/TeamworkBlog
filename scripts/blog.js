@@ -300,15 +300,21 @@ function  addComment(postId) {
         let postUrl =  kinveyPostUrl;
         let authHeaders = kinveyAuthHeaders;
         let postData = JSON.stringify(data);
-
-        $.ajax({
-            method: "PUT",
-            url: postUrl,
-            headers: authHeaders,
-            data: postData,
-            success: addPostCommentSuccess,
-            error: handleAjaxError
-        });
+        if (sessionStorage.getItem('authToken')!= null) {
+            $.ajax({
+                method: "PUT",
+                url: postUrl,
+                headers: authHeaders,
+                data: postData,
+                success: addPostCommentSuccess,
+                error: handleAjaxError
+            });
+        }
+        else{
+            showErrorBox("Please Login!!!")
+            $('#' + data._id + 'commentText').val("");
+            $('#' + data._id + 'author').val('');
+        }
 
         function addPostCommentSuccess() {
             listPosts();
